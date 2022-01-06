@@ -49,10 +49,6 @@ function findValue(param)
         //document.getElementById('prevAcc').innerHTML = "Accessories : ";
         
         var ulist = document.getElementById('accessories');
-        while(ulist.firstChild)
-        {
-            ulist.removeChild(ulist.firstChild);
-        }
         var lists =  data['accessories'];
         array = lists.split("/");
 
