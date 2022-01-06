@@ -936,12 +936,12 @@
     "accessories": "Black Lipstick / Tiara / Earring / Clown Eyes Blue"
   },
   {
-    "id": 120,
+    "id": 121,
     "type": "Human",
     "gender": "Female",
-    "skin": "Medium",
+    "skin": "Light",
     "count": 2,
-    "accessories": "Tassle Hat / Big Shades"
+    "accessories": "Tiara / Purple Lipstick"
   },
   {
     "id": 118,
@@ -968,13 +968,14 @@
     "accessories": "Messy Hair / Front Beard Dark"
   },
   {
-    "id": 121,
+    "id": 120,
     "type": "Human",
     "gender": "Female",
-    "skin": "Light",
+    "skin": "Medium",
     "count": 2,
-    "accessories": "Tiara / Purple Lipstick"
-  },
+    "accessories": "Tassle Hat / Big Shades"
+  }
+  ,
   {
     "id": 122,
     "type": "Human",
