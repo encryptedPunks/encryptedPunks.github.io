@@ -51,7 +51,10 @@ function findValue(param)
         var ulist = document.getElementById('accessories');
         var lists =  data['accessories'];
         array = lists.split("/");
-
+        while(ulist.hasChildNodes())
+        {
+            ulist.removeChild(ulist.firstChild)
+        }
         for(var i=0;i<array.length;i++)
         {
             var li = document.createElement('li');
