@@ -14,7 +14,189 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+        <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
         <style>
+            /* Google Font Import - Poppins */
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+            *{
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Poppins', sans-serif;
+            }
+            /* body{
+                overflow: hidden;
+            } */
+            section{
+                position: relative;
+                height: 100vh;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            section .profile{
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                justify-content: center;
+            }
+            section.show .profile{
+                display: none;
+            }
+            section .profile .profile-img{
+                height: 100px;
+                width: 100px;
+                border-radius: 50%;
+                background: #4070f4;
+                padding: 2px;
+                margin-bottom: 10px;
+            }
+            .profile .profile-img img{
+                height: 100%;
+                width: 100%;
+                object-fit: cover;
+                border-radius: 50%;
+                border: 3px solid #fff;
+            }
+            .profile .name,
+            .profile .profession{
+                font-size: 18px;
+                font-weight: 500;
+                color: #333;
+            }
+            .profile .profession{
+                font-weight: 400;
+                margin-top: -6px;
+            }
+            .profile .button{
+                display: flex;
+                align-items: center;
+                padding: 12px 20px;
+                background: #4070f4;
+                margin-top: 15px;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            .profile .button:hover{
+                background: #275df1;
+            }
+            .profile .button i{
+                color: #fff;
+                font-size: 18px;
+                margin-right: 5px;
+            }
+            .profile .button button{
+                background: none;
+                outline: none;
+                border: none;
+                font-size: 16px;
+                color: #fff;
+                pointer-events: none;
+            }
+
+            section .popup-outer{
+                position: absolute;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                width: 100%;
+                background: rgba(0,0,0,0.4);
+                opacity: 0;
+                pointer-events: none;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+                transform: scale(1.2);
+                transition: all 0.3s ease-in-out;
+            }
+            section.show .popup-outer{
+                opacity: 1;
+                pointer-events: auto;
+                transform: scale(1);
+            }
+            section .popup-box{
+                position: relative;
+                padding: 30px;
+                max-width: 600px;
+                width: 100%;
+                background: #fff;
+                border-radius: 12px;
+            }
+            .popup-box .close{
+                position: absolute;
+                top: 16px;
+                right: 16px;
+                font-size: 24px;
+                color: #b4b4b4;
+                cursor: pointer;
+                transition: all 0.2s ease;
+            }
+            .popup-box .close:hover{
+                color: #333;
+            }
+            section .popup-box .profile-text{
+                display: flex;
+                align-items: center;
+            }
+            section .popup-box img{
+                height: 200px;
+                width: 200px;
+                object-fit: cover;
+                border-radius: 50%;
+            } 
+            .profile-text .text{
+                display: flex;
+                flex-direction: column;
+                margin-left: 15px;
+            }
+            .profile-text .text .name{
+                font-size: 14px;
+                font-weight: 400;
+            }
+            .profile-text .text .profession{
+                font-size: 12px;
+                font-weight: 500;
+            }
+            section .popup-box textarea{
+                min-height: 140px;
+                width: 100%;
+                margin-top: 20px;
+                outline: none;
+                border: 1px solid #ddd;
+                padding: 12px;
+                border-radius: 6px;
+                resize: none;
+                font-size: 14px;
+                font-weight: 400;
+                background: #f3f3f3;
+            }
+            section .popup-box .button{
+                display: flex;
+                justify-content: flex-end;
+                margin-top: 15px;
+            }
+            .popup-box .button button{
+                outline: none;
+                border: none;
+                padding: 6px 12px;
+                border-radius: 6px;
+                background: #6f93f6;
+                margin-left: 8px;
+                color: #fff;
+                font-size: 14px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            .button button.cancel{
+                background: #f082ac;
+            }
+            .button button.cancel:hover{
+                background: #ec5f95;
+            }
+            .button button.send:hover{
+                background: #275df1;
+            }
             table {
                 border-collapse: collapse;
                 width: 100%;
@@ -36,11 +218,11 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto py-4 py-lg-0">
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.html">Home</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post.html">Attribute</a></li>
+                        <li class="nav-item"><a id="top" class="nav-link px-lg-3 py-3 py-lg-4" href="index.html">Home</a></li>
+                        <li class="nav-item"><a id="top" class="nav-link px-lg-3 py-3 py-lg-4" href="post.html">Attribute</a></li>
                         <!-- <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post.html">Sample Post</a></li> -->
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Rarity</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="https://www.randgallery.com/algo-collection/?address=PNKSVWOQAWDILLEF2KSGJPCM4ZQUCZ5UUGNHLVYGRYXTS100OFT3NU7WPE4" target="_blank">MarketPlace</a></li>
+                        <li class="nav-item"><a id="top" class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Rarity</a></li>
+                        <li class="nav-item"><a id="top" class="nav-link px-lg-3 py-3 py-lg-4" href="https://www.randgallery.com/algo-collection/?address=PNKSVWOQAWDILLEF2KSGJPCM4ZQUCZ5UUGNHLVYGRYXTS100OFT3NU7WPE4" target="_blank">MarketPlace</a></li>
                     </ul>
                 </div>
             </div>
@@ -50,6 +232,7 @@
         </header>
         <!-- Main Content-->
         <main class="mb-4" id="table1">
+            
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
@@ -65,78 +248,104 @@
                 </div>
             </div> 
             <hr class="my-4" />
+            <section id="1">
             <div class="container">
-                <table>
-                    <tr>
-                        <th>Attribute</th>
-                        <th>#</th>
-                        <th>Available</th>
-                        <th>Picture</th>
-                        <th>More Example</th>
-                    </tr>
-                    <tr>
-                        <td style="color:green;"><b>Alien</b></td>
-                        <td>9</td>
-                        <td style="color:red;"><b>8</b></td>
-                        <td><img src="assets/img2/635.png" height="100" width="100"></td>
-                        <td><img src="assets/img2/635.png" height="100" width="100">
-                            <img src="assets/img/CS.JPG" height="100" width="100">
-                            <!-- <img src="assets/img2/1223.png" height="100" width="100">  -->
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="color:green;"><b>Ape</b></td>
-                        <td>24</td>
-                        <td style="color:red;"><b>22</b></td>
-                        <td><img src="assets/img2/372.png" height="100" width="100"></td>
-                        <td><img src="assets/img2/372.png" height="100" width="100">
-                            <img src="assets/img2/1021.png" height="100" width="100">
-                            <!-- <img src="assets/img2/1223.png" height="100" width="100">  -->
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="color:green;"><b>Zombie</b></td>
-                        <td>88</td>
-                        <td style="color:orangered"><b>70+</b></td>
-                        <td><img src="assets/img2/117.png" height="100" width="100"></td>
-                        <td><img src="assets/img2/117.png" height="100" width="100">
-                            <img src="assets/img2/987.png" height="100" width="100">
-                            <!-- <img src="assets/img2/1223.png" height="100" width="100">  -->
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="color:green;"><b>Mask</b></td>
-                        <td>1100</td>
-                        <td style="color:orangered"><b>150+</b></td>
-                        <td><img src="assets/img2/340.png" height="100" width="100"></td>
-                        <td><img src="assets/img2/436.png" height="100" width="100">
-                            <img src="assets/img2/454.png" height="100" width="100">
-                            <!-- <img src="assets/img2/1223.png" height="100" width="100">  -->
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="color:green;"><b>Female</b></td>
-                        <td>3840</td>
-                        <td style="color:purple;"><b>Many</b></td>
-                        <td><img src="assets/img2/2.png" height="100" width="100"></td>
-                        <td><img src="assets/img2/2.png" height="100" width="100">
-                            <img src="assets/img2/5.png" height="100" width="100">
-                            <!-- <img src="assets/img2/2.png" height="100" width="100">  -->
-                        </td>
-                    </tr>
-                    <tr>
-                        <td style="color:green;"><b>Male</b></td>
-                        <td>6039</td>
-                        <td style="color:purple;"><b>Many</b></td>
-                        <td><img src="assets/img2/1.png" height="100" width="100"></td>
-                        <td><img src="assets/img2/1.png" height="100" width="100">
-                            <img src="assets/img2/3.png" height="100" width="100">
-                            <!-- <img src="assets/img2/1223.png" height="100" width="100"> -->
-                         </td>
-                    </tr>
-                </table>
+                
+                    <table>
+                        <tr>
+                            <th>Attribute</th>
+                            <th>#</th>
+                            <th>Available</th>
+                            <th>Picture</th>
+                            <th>More Example</th>
+                        </tr>
+                        <tr>
+                            <td style="color:green;"><b>Alien</b></td>
+                            <td>9</td>
+                            <td style="color:red;"><b>8</b></td>
+                            <td><a title="635" href="#" ><a title="635" id="hireBtn" href="javascript:javascript:void(0)" ><img src="assets/img2/635.png" height="100" width="100"></a></td>
+                            <td><a title="635" id="hireBtn" href="javascript:javascript:void(0)" ><img src="assets/img2/635.png" height="100" width="100"></a>
+                                <img src="assets/img/CS.JPG" height="100" width="100">
+                                <!-- <a title="635" id="hireBtn" href="javascript:javascript:void(0)" ><img src="assets/img2/1223.png" height="100" width="100"></a>  -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="color:green;"><b>Ape</b></td>
+                            <td>24</td>
+                            <td style="color:red;"><b>22</b></td>
+                            <td><a title="372" id="hireBtn" href="javascript:javascript:void(0)" ><img src="assets/img2/372.png" height="100" width="100"></a></td>
+                            <td><a title="372" id="hireBtn" href="javascript:javascript:void(0)" ><img src="assets/img2/372.png" height="100" width="100"></a>
+                                <a title="1021" id="hireBtn" href="javascript:javascript:void(0)" ><img src="assets/img2/1021.png" height="100" width="100"></a>
+                                <!-- <a title="635" id="hireBtn" href="javascript:javascript:void(0)" ><img src="assets/img2/1223.png" height="100" width="100"></a>  -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="color:green;"><b>Zombie</b></td>
+                            <td>88</td>
+                            <td style="color:orangered"><b>70+</b></td>
+                            <td><a title="117" id="hireBtn" href="javascript:javascript:void(0)" ><img src="assets/img2/121.png" height="100" width="100"></a></td>
+                            <td><a title="117" id="hireBtn" href="javascript:javascript:void(0)" ><img src="assets/img2/1190.png" height="100" width="100"></a>
+                                <a title="987" id="hireBtn" href="javascript:javascript:void(0)" ><img src="assets/img2/987.png" height="100" width="100"></a>
+                                <!-- <a title="635" id="hireBtn" href="javascript:javascript:void(0)" ><img src="assets/img2/1223.png" height="100" width="100"></a>  -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="color:green;"><b>Mask</b></td>
+                            <td>1100</td>
+                            <td style="color:orangered"><b>150+</b></td>
+                            <td><a title="340" id="hireBtn" href="javascript:javascript:void(0)" ><img src="assets/img2/340.png" height="100" width="100"></a></td>
+                            <td><a title="436" id="hireBtn" href="javascript:javascript:void(0)" ><img src="assets/img2/436.png" height="100" width="100"></a>
+                                <a title="454" id="hireBtn" href="javascript:javascript:void(0)" ><img src="assets/img2/454.png" height="100" width="100"></a>
+                                <!-- <a title="635" id="hireBtn" href="javascript:javascript:void(0)" ><img src="assets/img2/1223.png" height="100" width="100"></a>  -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="color:green;"><b>Female</b></td>
+                            <td>3840</td>
+                            <td style="color:purple;"><b>Many</b></td>
+                            <td><a title="2" id="hireBtn" href="javascript:javascript:void(0)" ><img src="assets/img2/2.png" height="100" width="100"></a></td>
+                            <td><a title="2" id="hireBtn" href="javascript:javascript:void(0)" ><img src="assets/img2/2.png" height="100" width="100"></a>
+                                <a title="5" id="hireBtn" href="javascript:javascript:void(0)" ><img src="assets/img2/5.png" height="100" width="100"></a>
+                                <!-- <a title="635" id="hireBtn" href="javascript:javascript:void(0)" ><img src="assets/img2/2.png" height="100" width="100"></a>  -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="color:green;"><b>Male</b></td>
+                            <td>6039</td>
+                            <td style="color:purple;"><b>Many</b></td>
+                            <td><a title="1" id="hireBtn" href="javascript:javascript:void(0)" ><img src="assets/img2/1.png" height="100" width="100"></a></td>
+                            <td><a title="1" id="hireBtn" href="javascript:javascript:void(0)" ><img src="assets/img2/1.png" height="100" width="100"></a>
+                                <a title="3" id="hireBtn" href="javascript:javascript:void(0)" ><img src="assets/img2/3.png" height="100" width="100"></a>
+                                <!-- <a title="635" id="hireBtn" href="javascript:javascript:void(0)" ><img src="assets/img2/1223.png" height="100" width="100"></a> -->
+                            </td>
+                        </tr>
+                    </table> 
+                    <br>
+                    
             </div>
-            <hr class="my-4" />
+            <div class="popup-outer">
+                <div class="popup-box">
+                  <i id="close" class='bx bx-x close'></i>
+                    <img id="newImage">
+                    <br>
+                    <h2 id="punkName"></h2>
+                    <br>
+                    <ul>
+                        <li id="type"></li>
+                        <li id="gender"></li>
+                        <li id="skin"></li>
+                        <li id="count"></li>
+                    </ul>
+                    <br>
+                    <h3>Accessories :</h3>
+                        <ul id="accessories">
+                        </ul> 
+                </div>
+            </div>
+        </section>
+        
+        <br>
+        
             <div class="container px-4 px-lg-5" id="heading">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
@@ -151,20 +360,7 @@
                     </div>
                 </div>
             </div> 
-            <!-- <div class="container">
-                <table>
-                    <tbody id="attri">
-                        <tr>
-                            <th>Attribute</th>
-                            <th>#</th>
-                            <th>Picture</th>
-                            <th>More Examples</th>
-                            <th>Picture</th>
-                            <th>More Example</th>
-                        </tr>
-                    </tbody>
-                </table>
-            </div> -->
+        <div>   
             <div class="container">
                 <table>
                     <tbody id="attri">
@@ -173,8 +369,7 @@
                             <th>#</th>
                             <th>Picture</th>
                             <th>More Examples</th>
-                            <!-- <th>Picture</th>
-                            <th>More Example</th> -->
+                            
                         </tr>
                         <tr>
                             <td style="color:green;"><b>Beanie</b></td>
@@ -701,7 +896,26 @@
                     </tbody>
                 </table>
             </div>
-            
+            <!-- <div class="popup-outer">
+                <div class="popup-box">
+                  <i id="close1" class='bx bx-x close'></i>
+                    <img id="newImage1">
+                    <br>
+                    <h2 id="punkName1"></h2>
+                    <br>
+                    <ul>
+                        <li id="type1"></li>
+                        <li id="gender1"></li>
+                        <li id="skin1"></li>
+                        <li id="count1"></li>
+                    </ul>
+                    <br>
+                    <h3>Accessories :</h3>
+                        <ul id="accessories1">
+                        </ul> 
+                </div>
+            </div> -->
+        </div>
             
         </main>
         <!-- Footer-->
@@ -745,8 +959,9 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
-        <!-- <script src="js/jquery-3.6.0.min.js"></script>
-        <script src="js/tableCreation.js"></script> -->
+        <script src="js/jquery-3.6.0.min.js"></script>
+        <script src="js/showDetails.js"></script>
+        <!-- <script src="js/tableCreation.js"></script> -->
         <!-- <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script> -->
     </body>
 </html>
