@@ -47,7 +47,7 @@ function findValue(param)
         document.getElementById('count').innerHTML = "Count : " + data.count;
         //Title
         //document.getElementById('prevAcc').innerHTML = "Accessories : ";
-        
+        document.getElementById('rank').innerHTML = "Rank : " + data.Rank;
         var ulist = document.getElementById('accessories');
         var lists =  data['accessories'];
         array = lists.split("/");
