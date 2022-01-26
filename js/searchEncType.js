@@ -27,7 +27,7 @@ $.getJSON(dataFile,function(data){
 
 function findValue(param)
 {
-    if(param>2301 || param<0)
+    if(param>2501 || param<0)
     {
         document.getElementById('search').value = undefined;
         document.getElementById('search').focus();
