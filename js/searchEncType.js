@@ -20,23 +20,34 @@ dataFile = '/JSON/data.json'
 fetchedData = undefined;
 document.getElementById("details").style.display = "none";
 document.getElementById('search').focus();
-$.getJSON(dataFile,function(data){
+document.getElementById("byPunk").style.display = "block";
+document.getElementById("byRank").style.display = "none";
+$.getJSON(dataFile, function(data) {
     fetchedData = data;
-    
+
 });
 
-function findValue(param)
-{
-    if(param>2501 || param<0)
-    {
+function checkBox() {
+    const cb = document.querySelector('#checkBox1');
+    starting = cb.checked;
+    if (!starting) {
+        document.getElementById("byPunk").style.display = "block";
+        document.getElementById("byRank").style.display = "none";
+    } else {
+        document.getElementById("byPunk").style.display = "none";
+        document.getElementById("byRank").style.display = "block";
+    }
+
+}
+
+function findValue(param) {
+    if (param > 9546 || param < 0) {
         document.getElementById('search').value = undefined;
         document.getElementById('search').focus();
-    }
-    else
-    {
+    } else {
         data = fetchedData[param];
         var heading = document.getElementById('encNumber');
-        heading.innerHTML = "EncryptedPunk " + "#" +String(param);
+        heading.innerHTML = "EncryptedPunk " + "#" + String(param);
         //Title
         document.getElementById('type').innerHTML = "Type : " + data.type;
         //Title
@@ -47,22 +58,61 @@ function findValue(param)
         document.getElementById('count').innerHTML = "Count : " + data.count;
         //Title
         //document.getElementById('prevAcc').innerHTML = "Accessories : ";
-        // document.getElementById('rank').innerHTML = "Rank : " + data.Rank;
+        document.getElementById('rank').innerHTML = "" + data.Rank;
         var ulist = document.getElementById('accessories');
-        var lists =  data['accessories'];
+        var lists = data['accessories'];
         array = lists.split("/");
-        while(ulist.hasChildNodes())
-        {
+        while (ulist.hasChildNodes()) {
             ulist.removeChild(ulist.firstChild)
         }
-        for(var i=0;i<array.length;i++)
-        {
+        for (var i = 0; i < array.length; i++) {
             var li = document.createElement('li');
             li.innerHTML = array[i];
             ulist.appendChild(li);
         }
-        
-        document.getElementById('imageHolder').src = "assets/img2/" +String(param)+".png";
+
+        document.getElementById('imageHolder').src = "assets/img2/" + String(param) + ".png";
+        document.getElementById("details").style.display = "block";
+    }
+}
+
+function findValue1(param) {
+    if (param > 9546 || param < 0) {
+        document.getElementById('search1').value = undefined;
+        document.getElementById('search1').focus();
+    } else {
+        for (var i = 0; i < fetchedData.length; i++) {
+            if (fetchedData[i].Rank == param) {
+                data = fetchedData[i];
+                break;
+            }
+        }
+        var heading = document.getElementById('encNumber');
+        heading.innerHTML = "EncryptedPunk " + "#" + String(data.id);
+        //Title
+        document.getElementById('type').innerHTML = "Type : " + data.type;
+        //Title
+        document.getElementById('gender').innerHTML = "Gender : " + data.gender;
+        //Title
+        document.getElementById('skin').innerHTML = "Skin : " + data.skin;
+        //Title
+        document.getElementById('count').innerHTML = "Count : " + data.count;
+        //Title
+        //document.getElementById('prevAcc').innerHTML = "Accessories : ";
+        document.getElementById('rank').innerHTML = "" + data.Rank;
+        var ulist = document.getElementById('accessories');
+        var lists = data['accessories'];
+        array = lists.split("/");
+        while (ulist.hasChildNodes()) {
+            ulist.removeChild(ulist.firstChild)
+        }
+        for (var i = 0; i < array.length; i++) {
+            var li = document.createElement('li');
+            li.innerHTML = array[i];
+            ulist.appendChild(li);
+        }
+
+        document.getElementById('imageHolder').src = "assets/img2/" + String(data.id) + ".png";
         document.getElementById("details").style.display = "block";
     }
 }
